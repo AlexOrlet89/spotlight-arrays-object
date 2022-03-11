@@ -3,6 +3,8 @@
 // OUTPUT: the value of the 'name' attribute i.e. Benny
 // REQS: use destructuring and the function should be a single line
 
+import { brands } from './data'
+
 export const getName = ({ name }) => name
 
 // INPUT: an object with a nested "address" attribute such as
@@ -85,21 +87,30 @@ export const getFirstTwoArgs = (a, b, ...rest) => {
 //    return a NEW object, do not modify the object passed in to the function
 //    use spread operator to create a new object
 
-export const addSneakerCount = (...nike) => {
-  console.log(nike.shoes)
-  let sneakerCount = nike.shoes.length
-  console.log(sneakerCount)
-  console.log(nike)
+export const addSneakerCount = ({ shoes, ...rest }) => {
+  return { shoes, ...rest, sneakerCount: shoes.length }
 }
 
 // INPUT: brands from data.js
 // OUTPUT: the brand names listed
 // REQS: use Object.keys to solve
-export const getBrandNames = () => {}
+export const getBrandNames = ({ ...rest }) => {
+  return Object.keys(rest)
+}
 
 // INPUT: brands from data.js
 // OUTPUT: total number of sneaker types across all brands (14)
-export const totalSneakerCount = () => {}
+export const totalSneakerCount = ({ ...rest }) => {
+  let sum = 0
+  const brandArray = Object.keys(brands) //turns into an array
+  console.log('log1', brandArray) // array of brands
+  console.log('log2', brands.Nike.shoes.length) // returns length of nike shoes array
+  for (let brand of brandArray) {
+    sum += brands[brand].shoes.length
+  }
+  console.log(sum)
+  return sum
+}
 
 // INPUT: An object
 // OUTPUT: An array with key value pairs converted to arrays
@@ -108,6 +119,9 @@ export const totalSneakerCount = () => {}
 // convertToArray({}) => []
 // Source: https://edabit.com/challenge/pPNAs5PvB3WvnDwDM
 
-export const convertToArray = () => {}
+export const convertToArray = ({ ...rest }) => {
+  let output = Object.entries(rest)
+  return output
+}
 
 //
